@@ -15,31 +15,31 @@ if (!PRIVATE_KEY)
 
 // An example of a deploy script that will deploy and call a simple contract.
 export default async function (hre: HardhatRuntimeEnvironment) {
-  console.log(`Running deploy script for the Guess Game contract`);
+  console.log(`Running deploy script for the Guess token contract`);
 
   // Initialize the wallet.
   const wallet = new Wallet(PRIVATE_KEY);
 
   // Create deployer object and load the artifact of the contract you want to deploy.
   const deployer = new Deployer(hre, wallet);
-  const artifact = await deployer.loadArtifact("Game");
+  const artifact = await deployer.loadArtifact("Token");
 
   // Estimate contract deployment fee
-  const tokenAddress = "<ERC20_TOKEN_CONTRACT_ADDRESS>";
-  const deploymentFee = await deployer.estimateDeployFee(artifact, [tokenAddress]);
+  const initialSupply = "<INITIAL_SUPPLY_OF_TOKENS>";
+  const deploymentFee = await deployer.estimateDeployFee(artifact, [initialSupply]);
 
   // Deploy this contract. The returned object will be of a `Contract` type, similarly to ones in `ethers`.
   const parsedFee = ethers.utils.formatEther(deploymentFee.toString());
   console.log(`The deployment is estimated to cost ${parsedFee} ETH`);
 
-  const gameContract = await deployer.deploy(artifact, [tokenAddress]);
+  const tokenContract = await deployer.deploy(artifact, [initialSupply]);
 
   //obtain the Constructor Arguments
   console.log(
-    "constructor args:" + gameContract.interface.encodeDeploy([tokenAddress])
+    "constructor args:" + tokenContract.interface.encodeDeploy([initialSupply])
   );
 
   // Show the contract info.
-  const contractAddress = gameContract.address;
+  const contractAddress = tokenContract.address;
   console.log(`${artifact.contractName} was deployed to ${contractAddress}`);
 }

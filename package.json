@@ -10,18 +10,31 @@
     "@matterlabs/hardhat-zksync-solc": "^0.3.15",
     "@types/chai": "^4.3.4",
     "@types/mocha": "^10.0.1",
+    "@typescript-eslint/eslint-plugin": "^5.58.0",
+    "@typescript-eslint/parser": "^5.58.0",
     "chai": "^4.3.7",
     "dotenv": "^16.0.3",
+    "eslint": "^8.38.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "ethers": "^5.7.2",
     "hardhat": "^2.12.4",
     "mocha": "^10.2.0",
+    "prettier": "^2.8.7",
+    "solhint": "^3.4.1",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.4",
     "zksync-web3": "^0.14.3"
   },
   "scripts": {
     "test": "NODE_ENV=test hardhat test --network zkSyncTestnet",
-    "deploy": "yarn hardhat deploy-zksync --script deploy-greeter.ts",
-    "greet": "yarn hardhat deploy-zksync --script use-greeter.ts"
+    "deploy:game": "yarn hardhat deploy-zksync --script deploy-game.ts",
+    "deploy:token": "yarn hardhat deploy-zksync --script deploy-token.ts",
+    "play": "yarn hardhat deploy-zksync --script use-game.ts",
+    "lint:sol": "solhint 'contracts/**/*.sol'",
+    "lint:ts": "eslint 'deploy/*.ts'"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.8.3"
   }
 }

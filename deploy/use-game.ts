@@ -1,13 +1,13 @@
-import { Provider } from "zksync-web3";
-import * as ethers from "ethers";
-import { HardhatRuntimeEnvironment } from "hardhat/types";
+import { Provider } from 'zksync-web3';
+import * as ethers from 'ethers';
+import { HardhatRuntimeEnvironment } from 'hardhat/types';
 
 // load env file
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
 dotenv.config();
 
 // load contract artifact. Make sure to compile first!
-import * as ContractArtifact from "../artifacts-zk/contracts/Greeter.sol/Greeter.json";
+import * as ContractArtifact from '../artifacts-zk/contracts/Game.sol/GuessTheNumber.json';
 
 const PRIVATE_KEY = process.env.WALLET_PRIVATE_KEY || "";
 
