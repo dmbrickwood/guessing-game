@@ -31,8 +31,9 @@ const config: HardhatUserConfig = {
     zkSyncTestnet,
   },
   solidity: {
-    version: "0.8.17",
-  },
+    version: "0.8.18",
+    settings: { "evmVersion": 'paris' },
+  }
 };
 
 export default config;

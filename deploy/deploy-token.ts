@@ -22,10 +22,10 @@ export default async function (hre: HardhatRuntimeEnvironment) {
 
   // Create deployer object and load the artifact of the contract you want to deploy.
   const deployer = new Deployer(hre, wallet);
-  const artifact = await deployer.loadArtifact("Token");
+  const artifact = await deployer.loadArtifact("GuessToken");
 
   // Estimate contract deployment fee
-  const initialSupply = "<INITIAL_SUPPLY_OF_TOKENS>";
+  const initialSupply = '100000000';
   const deploymentFee = await deployer.estimateDeployFee(artifact, [initialSupply]);
 
   // Deploy this contract. The returned object will be of a `Contract` type, similarly to ones in `ethers`.
@@ -40,6 +40,6 @@ export default async function (hre: HardhatRuntimeEnvironment) {
   );
 
   // Show the contract info.
-  const contractAddress = tokenContract.address;
-  console.log(`${artifact.contractName} was deployed to ${contractAddress}`);
+  const contractTokenAddress = tokenContract.address;
+  console.log(`${artifact.contractName} was deployed to ${contractTokenAddress}`);
 }

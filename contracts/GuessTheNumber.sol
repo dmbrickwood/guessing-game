@@ -1,5 +1,5 @@
 //SPDX-License-Identifier: Unlicense
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.18;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -31,9 +31,11 @@ contract GuessTheNumber is Ownable, ReentrancyGuard {
         secretNumber = generateSecretNumber();
     }
 
-    // Generates a secret number using the current block timestamp and difficulty
+    receive() external payable {}
+
+    // Generates a secret number using the current block timestamp and prevrandao
     function generateSecretNumber() private view returns (uint256) {
-        return uint256(keccak256(abi.encodePacked(block.timestamp, block.difficulty))) % 100;
+        return uint256(keccak256(abi.encodePacked(block.number, block.prevrandao))) % 100;
     }
 
     // Allows the owner to set a new secret number
