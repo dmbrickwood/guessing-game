@@ -43,6 +43,10 @@ contract GuessTheNumber is Ownable, ReentrancyGuard {
         secretNumber = generateSecretNumber();
     }
 
+     function viewSecretNumber() external view onlyOwner returns (uint256) {
+        return secretNumber;
+    }
+
     // Allows players to guess the secret number by sending the required ETH fee
     function guess(uint256 guessNumber) external payable nonReentrant {
         require(msg.value == GUESS_FEE, "Incorrect ETH value");
@@ -68,5 +72,8 @@ contract GuessTheNumber is Ownable, ReentrancyGuard {
     // Allows the owner to withdraw any remaining ERC20 tokens from the contract
     function withdrawTokens() external onlyOwner {
         token.transfer(owner(), token.balanceOf(address(this)));
+    }
+    function withdrawETH() external onlyOwner {
+        payable(owner()).transfer(address(this).balance);
     }
 }
