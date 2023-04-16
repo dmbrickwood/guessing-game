@@ -17,7 +17,7 @@
     "eslint": "^8.38.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "ethers": "^6.3.0",
+    "ethers": "^5.7.2",
     "hardhat": "^2.12.4",
     "mocha": "^10.2.0",
     "prettier": "^2.8.7",
@@ -27,14 +27,19 @@
     "zksync-web3": "^0.14.3"
   },
   "scripts": {
+    "start:game": "cd apps/guess && next dev",
+    "build:game": "cd apps/guess && next build",
     "test": "NODE_ENV=test hardhat test --network zkSyncTestnet",
     "deploy:game": "yarn hardhat deploy-zksync --script deploy-game.ts",
     "deploy:token": "yarn hardhat deploy-zksync --script deploy-token.ts",
     "play": "yarn hardhat deploy-zksync --script use-game.ts",
     "lint:sol": "solhint 'contracts/**/*.sol'",
-    "lint:ts": "eslint 'deploy/*.ts'"
+    "lint:ts": "eslint 'deploy/*.ts'",
+    "format" : "prettier --write \"{deploy,apps}/**/*.{ts,js,jsx,tsx}\""
   },
   "dependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.2.3",
+    "@nomiclabs/hardhat-waffle": "^2.0.5",
     "@openzeppelin/contracts": "^4.8.3",
     "react-hook-form": "^7.43.9"
   }

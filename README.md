@@ -1,22 +1,30 @@
-# zkSync Hardhat project
+# zkSync Guess Game
 
-This project was scaffolded with [zksync-cli](https://github.com/matter-labs/zksync-cli).
+This repository contains the code for the zkSync Guess Game, a simple game where players can guess a secret number and win rewards in ETH and ERC20 tokens. This README provides instructions on how to compile and deploy the contracts, start the game locally, and play the game.
+
+You may interact with the deployed Guess Game here:
+- https://game-guess.netlify.app
+
+You can view the deployed smart contracts on the zksync block explorer:
+- GuessToken contract: https://goerli.explorer.zksync.io/address/0x2bF06422fEbB3e210Cde197781FDE9369789Fd8f
+- GuessTheNumber contract: https://goerli.explorer.zksync.io/address/0xd0919075f0190457C63c316De669724F7579EC6B
+
+## Prerequisites
+
+This repository makes use of yarn, nodejs. To install node.js binaries, installers, and source tarballs, please visit https://nodejs.org/en/download/. Once node.js is installed you may proceed to install [`yarn`](https://classic.yarnpkg.com/en/docs/install):
 
 ## Project structure
 
-- `/contracts`: smart contracts.
-- `/deploy`: deployment and contract interaction scripts.
-- `/test`: test files
-- `hardhat.config.ts`: configuration file.
+- `contracts/`: This directory contains the Solidity contracts for the game and the ERC20 token used for rewards.
+- `deploy/`: This directory contains the deployment and contract interaction scripts. The scripts are written in TypeScript and use Hardhat and @matterlabs/hardhat-zksync-deploy to interact with the zkSync network.
+- `hardhat.config.ts`: This file is the configuration file for Hardhat. It contains the settings for compiling, deploying, and testing the contracts.
+- `apps/guess`: This directory contains the React / next.js frontend application to play the Guessing game.
 
 ## Commands
 
 - `yarn hardhat compile` will compile the contracts.
-- `yarn run deploy` will execute the deployment script `/deploy/deploy-greeter.ts`. Requires [environment variable setup](#environment-variables).
-- `yarn run greet` will execute the script `/deploy/use-greeter.ts` which interacts with the Greeter contract deployed.
-- `yarn test`: run tests. **Check test requirements below.**
-
-Both `yarn run deploy` and `yarn run greet` are configured in the `package.json` file and run `yarn hardhat deploy-zksync`.
+- `yarn deploy:token` will execute the deployment script `/deploy/deploy-token.ts`. Requires [environment variable setup](#environment-variables). Specifically, this will deploy the GuessToken contract.
+- `yarn deploy:game` will execute the deployment script `/deploy/deploy-game.ts`. Requires [environment variable setup](#environment-variables). Specifically, this will deploy the GuessTheNumber contract.
 
 ### Environment variables
 
@@ -28,11 +36,82 @@ To use it, rename `.env.example` to `.env` and enter your private key.
 WALLET_PRIVATE_KEY=123cde574ccff....
 ```
 
-### Local testing
+### Compiling Contracts
 
-In order to run test, you need to start the zkSync local environment. Please check [this section of the docs](https://v2-docs.zksync.io/api/hardhat/testing.html#prerequisites) which contains all the details.
+To compile the contracts, we will first install the dependencies:
 
-If you do not start the zkSync local environment, the tests will fail with error `Error: could not detect network (event="noNetwork", code=NETWORK_ERROR, version=providers/5.7.2)`
+```
+yarn install
+```
+
+Next, we will compile the contracts using hardhat:
+
+
+```
+yarn hardhat compile
+```
+
+### Deploying Contracts
+
+Before deploying the contracts, make sure you have set up your wallet with enough funds for the deployment and gas fees. To deploy the game contract and token contract, run the following commands:
+
+```
+yarn deploy:token
+```
+
+You should see the following output if successfully deployed:
+
+```
+Running deploy script for the Guess token contract
+The deployment is estimated to cost 0.00155026975 ETH
+constructor args:0x00000000000000000000000000000000000000000000d3c21bcecceda1000000
+GuessToken was deployed to `CONTRACT-ADDRESS`
+```
+
+Next, we will update the `deploy-game.ts` script to reference our newly deployed Token contract. Copy the GuessToken contract address from the above output and 
+update the `tokenAdress` variable to the GuessToken contract address. For example,
+
+```
+const tokenAddress = "0x2bF06422fEbB3e210Cde197781FDE9369789Fd8f";
+```
+
+This is required as our GuessTheNumber contract constructor requires the tokenAddress as an argument. Now let's deploy the game contract by running:
+
+```
+yarn deploy:game
+```
+
+You should see the following output if successfully deployed:
+
+```
+Running deploy script for the Guess Game contract
+The deployment is estimated to cost 0.0013068275 ETH
+Token balance of the GuessTheNumber contract: 1000000.0 GTN
+ETH balance of the GuessTheNumber contract: 0.2 ETH
+constructor args:0x0000000000000000000000002bf06422febb3e210cde197781fde9369789fd8f
+GuessTheNumber was deployed to `CONTRACT-ADDRESS`
+```
+
+## Starting the Game Locally
+
+To start the game locally, we will first install the dependencies required in the `apps/guess` directory:
+
+```
+cd apps/guess && yarn install 
+```
+
+Next, we will start the game:
+
+```
+yarn dev
+```
+
+This will start the Next.js server on `localhost:3000`.
+
+### Playing the Game
+To play the game, navigate to `localhost:3000` in your web browser. Enter a guess and submit it by clicking the "Guess" button. If your guess is correct, you will be rewarded with ETH and ERC20 tokens. If your guess is incorrect, you will lose your guess fee.
+
+Note that the game is currently only deployed on the zkSyncTestnet network, so you will need to have an account on that network and some testnet funds to play. You can also modify the code to deploy the game to a different network or to use a different token for rewards.
 
 ## Official Links
 

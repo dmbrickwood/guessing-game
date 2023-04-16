@@ -1,10 +1,10 @@
-import { Wallet } from 'zksync-web3';
-import * as ethers from 'ethers';
-import { HardhatRuntimeEnvironment } from 'hardhat/types';
-import { Deployer } from '@matterlabs/hardhat-zksync-deploy';
+import { Wallet } from "zksync-web3";
+import * as ethers from "ethers";
+import { HardhatRuntimeEnvironment } from "hardhat/types";
+import { Deployer } from "@matterlabs/hardhat-zksync-deploy";
 
 // load env file
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 dotenv.config();
 
 // load wallet private key from env file
@@ -25,8 +25,10 @@ export default async function (hre: HardhatRuntimeEnvironment) {
   const artifact = await deployer.loadArtifact("GuessToken");
 
   // Estimate contract deployment fee
-  const initialSupply = '100000000';
-  const deploymentFee = await deployer.estimateDeployFee(artifact, [initialSupply]);
+  const initialSupply = ethers.utils.parseEther("1000000");
+  const deploymentFee = await deployer.estimateDeployFee(artifact, [
+    initialSupply,
+  ]);
 
   // Deploy this contract. The returned object will be of a `Contract` type, similarly to ones in `ethers`.
   const parsedFee = ethers.utils.formatEther(deploymentFee.toString());
@@ -34,12 +36,22 @@ export default async function (hre: HardhatRuntimeEnvironment) {
 
   const tokenContract = await deployer.deploy(artifact, [initialSupply]);
 
+  // Get and log the token balance of the token contract
+  const tokenBalance = await tokenContract.balanceOf(tokenContract.address);
+  console.log(
+    `Token balance of the token contract: ${ethers.utils.formatEther(
+      tokenBalance.toString(),
+    )} GTN`,
+  );
+
   //obtain the Constructor Arguments
   console.log(
-    "constructor args:" + tokenContract.interface.encodeDeploy([initialSupply])
+    "constructor args:" + tokenContract.interface.encodeDeploy([initialSupply]),
   );
 
   // Show the contract info.
   const contractTokenAddress = tokenContract.address;
-  console.log(`${artifact.contractName} was deployed to ${contractTokenAddress}`);
+  console.log(
+    `${artifact.contractName} was deployed to ${contractTokenAddress}`,
+  );
 }
