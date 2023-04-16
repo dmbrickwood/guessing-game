@@ -17,6 +17,8 @@ const Home = () => {
       if (window.ethereum) {
         const provider = new Web3Provider(window.ethereum);
         setProvider(provider);
+        
+        await provider.send('eth_requestAccounts', []);
 
         const signerInstance = provider.getSigner();
         setSigner(signerInstance);

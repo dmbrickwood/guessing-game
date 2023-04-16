@@ -3,7 +3,7 @@
 This repository contains the code for the zkSync Guess Game, a simple game where players can guess a secret number and win rewards in ETH and ERC20 tokens. This README provides instructions on how to compile and deploy the contracts, start the game locally, and play the game.
 
 You may interact with the deployed Guess Game here:
-- https://game-guess.netlify.app
+- https://zksync-guess-game.netlify.app/
 
 You can view the deployed smart contracts on the zksync block explorer:
 - GuessToken contract: https://goerli.explorer.zksync.io/address/0x2bF06422fEbB3e210Cde197781FDE9369789Fd8f
