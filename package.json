@@ -8,6 +8,8 @@
   "devDependencies": {
     "@matterlabs/hardhat-zksync-deploy": "^0.6.1",
     "@matterlabs/hardhat-zksync-solc": "^0.3.15",
+    "@matterlabs/hardhat-zksync-verify": "^0.1.5",
+    "@nomiclabs/hardhat-etherscan": "^3.1.7",
     "@types/chai": "^4.3.4",
     "@types/mocha": "^10.0.1",
     "@typescript-eslint/eslint-plugin": "^5.58.0",
@@ -35,7 +37,7 @@
     "play": "yarn hardhat deploy-zksync --script use-game.ts",
     "lint:sol": "solhint 'contracts/**/*.sol'",
     "lint:ts": "eslint 'deploy/*.ts'",
-    "format" : "prettier --write \"{deploy,apps}/**/*.{ts,js,jsx,tsx}\""
+    "format": "prettier --write \"{deploy,apps}/**/*.{ts,js,jsx,tsx}\""
   },
   "dependencies": {
     "@nomiclabs/hardhat-ethers": "^2.2.3",
