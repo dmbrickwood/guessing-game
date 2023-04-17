@@ -6,6 +6,7 @@
   "author": "Antonio <aug@matterlabs.dev>",
   "license": "MIT",
   "devDependencies": {
+    "@ethereum-waffle/chai": "^4.0.10",
     "@matterlabs/hardhat-zksync-deploy": "^0.6.1",
     "@matterlabs/hardhat-zksync-solc": "^0.3.15",
     "@matterlabs/hardhat-zksync-verify": "^0.1.5",
@@ -19,6 +20,7 @@
     "eslint": "^8.38.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "ethereum-waffle": "^4.0.10",
     "ethers": "^5.7.2",
     "hardhat": "^2.12.4",
     "mocha": "^10.2.0",
@@ -29,9 +31,7 @@
     "zksync-web3": "^0.14.3"
   },
   "scripts": {
-    "start:game": "cd apps/guess && next dev",
-    "build:game": "cd apps/guess && next build",
-    "test": "NODE_ENV=test hardhat test --network zkSyncTestnet",
+    "test": "NODE_ENV=test hardhat test",
     "deploy:game": "yarn hardhat deploy-zksync --script deploy-game.ts",
     "deploy:token": "yarn hardhat deploy-zksync --script deploy-token.ts",
     "play": "yarn hardhat deploy-zksync --script use-game.ts",

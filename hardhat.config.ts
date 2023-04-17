@@ -1,8 +1,11 @@
 import { HardhatUserConfig } from "hardhat/config";
 
+require("@nomiclabs/hardhat-ethers");
+
 import "@matterlabs/hardhat-zksync-deploy";
 import "@matterlabs/hardhat-zksync-solc";
 import "@matterlabs/hardhat-zksync-verify";
+import "@nomiclabs/hardhat-waffle";
 
 // dynamically changes endpoints for local tests
 const zkSyncTestnet =
@@ -25,17 +28,20 @@ const config: HardhatUserConfig = {
     compilerSource: "binary",
     settings: {},
   },
-  defaultNetwork: "zkSyncTestnet",
+  defaultNetwork: "zkSyncTestnet", // change to hardhat for local testing
   networks: {
     hardhat: {
       zksync: false,
+      accounts: {
+        mnemonic: "test test test test test test test test test test test junk",
+      },
     },
     zkSyncTestnet,
   },
   solidity: {
     version: "0.8.18",
     settings: { "evmVersion": 'paris' },
-  }
+  },
 };
 
 export default config;

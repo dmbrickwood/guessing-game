@@ -113,6 +113,26 @@ To play the game, navigate to `localhost:3000` in your web browser. Enter a gues
 
 Note that the game is currently only deployed on the zkSyncTestnet network, so you will need to have an account on that network and some testnet funds to play. You can also modify the code to deploy the game to a different network or to use a different token for rewards.
 
+## Testing Locally
+
+To run tests locally, you will need to set up the testing environment by following the steps provided in this guide:
+
+- [Installing the Testing Environment](https://era.zksync.io/docs/api/hardhat/testing.html#installing-the-testing-environment)
+  
+**Note:** Please allow some time for the local zkSync network to set up before running the tests.
+
+Update the `hardhat.config.ts` file to set the `defaultNetwork` as `hardhat`. For example,
+
+```
+defaultNetwork: "hardhat",
+```
+
+**Run the test suite using the following command:**
+
+```
+yarn test
+```
+
 ## Official Links
 
 - [Website](https://zksync.io/)
