@@ -5,6 +5,16 @@ const GameRules = () => {
     <div className="w-1/2 mb-6 p-6 bg-gray-100 rounded-lg shadow-md">
       <h3 className="text-2xl font-bold mb-2">Game Rules:</h3>
       <ol className="list-decimal list-outside pl-5">
+      <li className="mb-1">
+          Players must be connected to zkSync testnet using MetaMask. If you do not have it configured please refer to the docs {" "}
+  <a
+    href="https://era.zksync.io/docs/dev/fundamentals/interacting.html#connecting-to-zksync-era-on-metamask"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    here
+  </a>.
+        </li>
         <li className="mb-1">
           Players must guess a secret number between 0 and 99.
         </li>
